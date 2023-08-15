@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página Inicial</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Candara, sans-serif;
+            background-image: url('texturapapel.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: #4adfb250;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-left: 280px;
+        }
+
+        .image-link {
+            flex: 1;
+            max-width: calc(33.33% - 20px);
+            text-align: center;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .image-link:hover {
+            transform: scale(1.1);
+        }
+
+        .image-link img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .pesqrela {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 800px;
+            margin-top: 20px;
+            margin-left: 280px;
+        }
+
+        .pesqrela .image-link {
+            flex: 1;
+            max-width: calc(50% - 20px);
+            text-align: center;
+        }
+
+        .pesqrela .image-link img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .imagemfixa {
+            position: absolute;
+            top: 150px;
+            right: 150px;
+            padding: 20px; /* Adiciona espaço entre a imagem e a borda da página */
+        }
+
+        .imagemfixa img {
+            max-width: 150%;
+            height: auto;
+            width: 600px;
+        }
+        .imgtitulo {
+            position: absolute;
+            top: 100px; 
+            left: 70px;
+            padding: 20px; /* Adiciona espaço entre a imagem e a borda da página */
+        }
+
+        .imgtitulo img {
+            max-width: 150%;
+            height: auto;
+            width: 1020px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="imgtitulo"><img src="titulo.png"></div>
+    
+    <div>
+    <div class="container">
+        <div class="image-link">
+            <a href="formulario.html">
+                <img src="btcad.png" alt="Cadunico">
+            </a>
+        </div>
+        <div class="image-link">
+            <a href="formulario2.html">
+                <img src="btassit.png" alt="Assistência">
+            </a>
+        </div>
+        <div class="image-link">
+            <a href="crascreas.html">
+                <img src="btcras.png" alt="CRAS/CREAS">
+            </a>
+        </div>
+    </div> 
+       
+    <div class="pesqrela">
+        <div class="image-link">
+            <a href="pesquisar.html">
+                <img src="btpesquisar.png" alt="Pesquisar">
+            </a>
+        </div>
+        <div class="image-link">
+            <a href="relatorio.html">
+                <img src="btrelatorios.png" alt="Relatórios">
+            </a>
+        </div>
+    </div>
+    
+    <div class="imagemfixa">
+        <img src="pessoas.png" alt="Imagem Fixa">
+    </div>
+</div>
+</body>
+</html>

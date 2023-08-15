@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Registro de Usuários do Cadunico</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('texturapapel.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: #4adfb250;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 440px; /* Aumentando o tamanho em 10% */
+            margin-right: 15px;
+        }
+        .campos {
+            width: 460px; /* Aumentando o tamanho em 10% */
+            max-width: 90%; /* Limitando a largura máxima */
+            margin-left: 10px;
+        }
+        .btsubmit {
+            width: 460px; /* Aumentando o tamanho em 10% */
+            max-width: 90%; /* Limitando a largura máxima */
+            margin-left: 330px;
+        }
+        h2, h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin: 0 auto 15px; /* Centralizando verticalmente e espaçamento inferior */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            
+        }
+
+        input[type="text"].uppercase {
+            text-transform: uppercase; /* Transforma o texto em maiúsculas */
+        }
+
+        input[type="text"][name="cpf"] {
+            width: 100%; /* Agora tem a mesma largura do campo Nome */
+        }
+
+        input[type="text"][name="cpf"]:invalid {
+            border-color: rgba(255, 0, 0, 0.37); /* Adiciona borda vermelha se o CPF for inválido */
+        }
+
+        input[type="text"][name="cpf"]:invalid::placeholder {
+            color: rgba(255, 0, 0, 0.212); /* Muda a cor do placeholder para vermelho */
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 0 auto 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+        }
+        select, input[type="text"], input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin: 0 auto 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+        }
+    /* Estilização para os botões */
+        .btn-consultar, .btn-pesquisar, .btn-home {
+            color: #000;
+            border: none;
+            padding: 10px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        
+        .btn-consultar {
+            background-color: #4adce1b6;
+            margin-left:  auto;
+            font-size: 14px;
+        }
+
+        .btn-pesquisar {
+            background-color: #4A75E1;
+            margin-left:  auto;
+            font-size: 14px;
+        }
+
+        .btn-home {
+            background-color: #84e713a1;
+            margin-left: auto;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-consultar:hover, .btn-pesquisar:hover {
+            background-color: #1FB37B;
+        }
+    /* Posicionamento dos botões no canto superior esquerdo */
+    .buttons-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+    .mensagem-sucesso{
+           color: #1fb34b;
+        }
+    </style>
+
+<script>
+    function validarCPF(input) {
+        const cpf = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (cpf.length !== 11 || isNaN(cpf)) {
+            input.setCustomValidity('CPF inválido. Digite exatamente 11 dígitos numéricos.');
+        } else {
+            input.setCustomValidity('');
+        }
+    }
+
+    window.onload = function() {
+            if (window.location.search.includes('success=true')) {
+                var mensagemSucesso = document.querySelector('.mensagem-sucesso');
+                mensagemSucesso.style.display = 'block';
+                setTimeout(function() {
+                    mensagemSucesso.style.display = 'none';
+                }, 2000);
+            }
+        };
+</script>
+
+</head>
+<body>
+    <div class="form-container">
+        <h1>Registro de Atendimento</h1>
+        <h2>Cadastro Único</h2>
+        <form action="processar.php" method="post">
+       
+            <div  class="campos">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" required class="uppercase">
+
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" required pattern="[0-9]{11}" title="Digite exatamente 11 dígitos numéricos" placeholder="Digite o CPF com 11 dígitos" oninput="validarCPF(this)">
+
+                <label for="atendimento">Tipo de Atendimento:</label>
+                <select name="atendimento" required>
+                    <option value="" disabled selected>Selecione um tipo de atendimento</option>
+                    <option value="Sibec">Sibec</option>
+                    <option value="Nis">Nis</option>
+                    <option value="Folha Resumo">Flha Resumo</option>
+                    <option value="Recadastro">Recadastro</option>
+                    <option value="Atualização">Atualização</option>
+                    <option value="Cadastro Novo">Cadastro novo</option>
+                    <option value="Tranferência">Transfência</option>
+                    <option value="Visista Domiciliar">Visita Domiciliar</option>
+                    <option value="Agendamento">Agendamento</option>
+                    <option value="Outors">Outros</option>
+                </select>
+
+                <label for="atendente">Atendente:</label>
+                <select name="atendente" required>
+                    <option value="" disabled selected>Selecione um atendente</option>
+                    <option value="João Manoel">João Manoel</option>
+                    <option value="José Eduardo">José Eduardo</option>
+                    <option value="Mayara Yasmin">Mayara Yasmin</option>
+                    <option value="Jaqueline Oliveira">Jaqueline Oliveira</option>
+                </select>
+
+                <label for="datahora">Data e Hora:</label>
+                <input type="datetime-local" name="datahora" required>
+            </div>
+
+            <div  class="btsubmit">
+            <input type="submit" value="Cadastrar">
+            </div>
+
+            <div class="buttons-container">
+                <button class="btn-pesquisar">Pesquisar</button>
+                <button class="btn-consultar">Consultar Relatórios</button>
+                <a href="index.html" class="btn-home">Página Inicial</a>
+            </div>
+            
+            <div class="mensagem-sucesso">
+                Atendimento registrado com sucesso!
+            </div>
+
+        </form>
+        
+    </div>
+</body>
+</html>

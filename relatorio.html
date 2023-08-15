@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatórios de Atendimentos</title>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4a60df94;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .report-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .chart {
+            width: 45%;
+        }
+
+        .details {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-home {
+            background-color: #84e713a1;
+            text-decoration: none;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-home:hover {
+            background-color: #1fb34b;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <h1>Relatórios de Atendimentos</h1>
+        
+        <div class="chart-container">
+            <div class="chart">
+                <canvas id="atendimentosPorTipoChart"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="atendimentosPorMesChart"></canvas>
+            </div>
+        </div>
+
+        <div class="details">
+            <h2>Detalhes dos Atendimentos</h2>
+            <p>Quantidade total de atendimentos: <span id="totalAtendimentos">0</span></p>
+            <p>Quantidade por tipo:</p>
+            <ul id="atendimentosPorTipo">
+                <!-- Preencher com os dados reais -->
+            </ul>
+            <p>Quantidade por mês:</p>
+            <ul id="atendimentosPorMes">
+                <!-- Preencher com os dados reais -->
+            </ul>
+        </div>
+
+        <div class="btn-container">
+            <a href="pesquisar.html" class="btn-home">Nova Pesquisa</a>
+            <a href="index.html" class="btn-home">Página Inicial</a>
+        </div>
+    </div>
+
+    <script>
+        // Dados fictícios para ilustração
+        var atendimentosPorTipoData = {
+            labels: ['SIBEC', 'NIS', 'FOLHA RESUMO', 'RECADASTRO', 'ATUALIZAÇÃO', 'OUTROS'],
+            datasets: [{
+                label: 'Quantidade de Atendimentos por Tipo',
+                data: [30, 25, 15, 10, 20, 5], // Substitua com os dados reais
+                backgroundColor: [
+                    '#4adce1b6',
+                    '#4A75E1',
+                    '#FF5733',
+                    '#FFC300',
+                    '#B200FF',
+                    '#FF0061'
+                ],
+                borderColor: [
+                    '#4adce1',
+                    '#4A75E1',
+                    '#FF5733',
+                    '#FFC300',
+                    '#B200FF',
+                    '#FF0061'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        var atendimentosPorMesData = {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            datasets: [{
+                label: 'Quantidade de Atendimentos por Mês',
+                data: [50, 45, 60, 40, 35, 75, 80, 90, 70, 55, 65, 70], // Substitua com os dados reais
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Criação dos gráficos
+        var ctx1 = document.getElementById('atendimentosPorTipoChart').getContext('2d');
+        var chart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: atendimentosPorTipoData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Quantidade de Atendimentos por Tipo'
+                    }
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('atendimentosPorMesChart').getContext('2d');
+        var chart2 = new Chart(ctx2, {
+            type: 'line',
+            data: atendimentosPorMesData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Quantidade de Atendimentos por Mês'
+                    }
+                }
+            }
+        });
+
+        // Dados fictícios para ilustração
+        var totalAtendimentos = 375; // Substitua com o total real de atendimentos
+        var atendimentosPorTipo = [
+            { tipo: 'SIBEC', quantidade: 30 }, // Substitua com os dados reais
+            { tipo: 'NIS', quantidade: 25 },
+            { tipo: 'FOLHA RESUMO', quantidade: 15 },
+            { tipo: 'RECADASTRO', quantidade: 10 },
+            { tipo: 'ATUALIZAÇÃO', quantidade: 20 },
+            { tipo: 'OUTROS', quantidade: 5 }
+        ];
+        var atendimentosPorMes = [
+            { mes: 'Janeiro', quantidade: 50 }, // Substitua com os dados reais
+            { mes: 'Fevereiro', quantidade: 45 },
+            { mes: 'Março', quantidade: 60 },
+            { mes: 'Abril', quantidade: 40 },
+            { mes: 'Maio', quantidade: 35 },
+            { mes: 'Junho', quantidade: 75 },
+            { mes: 'Julho', quantidade: 80 },
+            { mes: 'Agosto', quantidade: 90 },
+            { mes: 'Setembro', quantidade: 70 },
+            { mes: 'Outubro', quantidade: 55 },
+            { mes: 'Novembro', quantidade: 65 },
+            { mes: 'Dezembro', quantidade: 70 }
+        ];
+
+        // Preencher detalhes dos atendimentos
+        document.getElementById('totalAtendimentos').textContent = totalAtendimentos;
+        var atendimentosPorTipoList = document.getElementById('atendimentosPorTipo');
+        var atendimentosPorMesList = document.getElementById('atendimentosPorMes');
+        
+        atendimentosPorTipo.forEach(function(item) {
+            var li = document.createElement('li');
+            li.textContent = `${item.tipo}: ${item.quantidade}`;
+            atendimentosPorTipoList.appendChild(li);
+        });
+
+        atendimentosPorMes.forEach(function(item) {
+            var li = document.createElement('li');
+            li.textContent = `${item.mes}: ${item.quantidade}`;
+            atendimentosPorMesList.appendChild(li);
+        });
+
+
+        // Função para obter os dados do banco de dados
+    function fetchChartData() {
+        fetch('get_data.php')
+            .then(response => response.json())
+            .then(data => {
+                updateCharts(data);
+                updateDetails(data);
+            })
+            .catch(error => console.error('Erro ao obter dados:', error));
+    }
+
+    // Função para atualizar os gráficos com os dados obtidos
+    function updateCharts(data) {
+        // Atualizar gráfico de atendimentos por tipo
+        atendimentosPorTipoData.labels = data.tipos.map(item => item.atendimento);
+        atendimentosPorTipoData.datasets[0].data = data.tipos.map(item => item.quantidade);
+        chart1.update();
+
+        // Atualizar gráfico de atendimentos por mês
+        atendimentosPorMesData.labels = data.meses.map(item => item.mes);
+        atendimentosPorMesData.datasets[0].data = data.meses.map(item => item.quantidade);
+        chart2.update();
+    }
+
+    // Função para atualizar os detalhes do relatório com os dados obtidos
+    function updateDetails(data) {
+        document.getElementById('totalAtendimentos').textContent = data.total;
+        var atendimentosPorTipoList = document.getElementById('atendimentosPorTipo');
+        var atendimentosPorMesList = document.getElementById('atendimentosPorMes');
+        
+        atendimentosPorTipoList.innerHTML = '';
+        data.tipos.forEach(function(item) {
+            var li = document.createElement('li');
+            li.textContent = `${item.atendimento}: ${item.quantidade}`;
+            atendimentosPorTipoList.appendChild(li);
+        });
+
+        atendimentosPorMesList.innerHTML = '';
+        data.meses.forEach(function(item) {
+            var li = document.createElement('li');
+            li.textContent = `Mês ${item.mes}: ${item.quantidade}`;
+            atendimentosPorMesList.appendChild(li);
+        });
+    }
+
+    // Chamar a função para obter e atualizar os dados ao carregar a página
+    fetchChartData();
+    
+    </script>
+</body>
+</html>
